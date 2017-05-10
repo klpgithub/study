@@ -60,3 +60,47 @@ L = ['HELLO', 'PYTHON', 'KLP']
 print([s.lower() for s in L])
 
 # 生成器
+# 要创建一个generator，有很多种方法。第一种方法很简单，只要把一个列表生成式的[]改成()，就创建了一个generator：
+g = (x * x for x in range(0, 10))
+print(type(g))
+print(next(g))  # 可以通过next()函数获得generator的下一个返回值
+
+'''
+我们讲过，generator保存的是算法，每次调用next(g)，就计算出g的下一个元素的值，直到计算到最后一个元素，
+没有更多的元素时，抛出StopIteration的错误。
+'''
+for n in g:
+    print(n)
+
+
+# 斐波拉契数列用列表生成式写不出来，但是，用函数把它打印出来却很容易：
+
+def fib(max):
+    n, a, b = 0, 0, 1
+    while (n < max):
+        print(b)
+        a, b = b, a + b
+        n = n + 1
+    return 'done'
+
+
+
+# 要把fib函数变成generator，只需要把print(b)改为yield b就可以了：
+fib(6)
+
+def fib(max):
+    n, a, b = 0, 0, 1
+    while (n < max):
+        yield b
+        a, b = b, a + b
+        n = n + 1
+    return 'done'
+
+print(fib(7))
+# 如果一个函数定义中包含yield关键字，那么这个函数就不再是一个普通函数，而是一个generator：
+
+
+
+
+
+
